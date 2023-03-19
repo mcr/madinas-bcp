@@ -1,5 +1,5 @@
 ---
-title: Best Current Practices for consistent identity in a privacy preserving way
+title: Best Current Practices for consistent network identity in a privacy preserving way
 abbrev: MADINAS BCP
 docname: draft-richardson-madinas-bcp-latest
 
@@ -48,9 +48,9 @@ In each use case, the affects of different device policies is discussed.
 In some cases the affects are not significant and no change is recommended.
 In other cases, the affects are significant to end users experience, or to even damaging to device operation, and deployment of alternate protocols are recommended.
 
-The recommendations for alternate protocols are critical and there is often a very difficult market situation as before the alternate protocol can be deployed both a client and server need to be present.
-Neither party benefits until both parties move.
-A particularly negative market situation can be when client and server implementers come to non-interoperable choices in what protocol they will implement.
+The recommendations for alternate protocols are critical and there is often a very difficult market situation: before the alternate protocol can be deployed both a client and server need to be present.
+Neither party benefits until both parties have deployed.
+A particularly negative market situation can develop when client and server implementers come to non-interoperable choices in what protocol they will implement.
 
 # Terminology
 
@@ -68,7 +68,44 @@ A particularly negative market situation can be when client and server implement
 
 ## Parental Controls on dependant devices
 
-TBD
+A common concern among parents of children is that the children do not access the Internet at inappropriate times.
+For instance, network access may be restricted from 30 minutes before bedtime until 6am in the morning.
+
+(There are also concerns that the devices used by the children should go through specific filtering, but that is a subset of the time-of-day access.  The time-of-day access is a binary on/off function, while the filtering is some continuous function with varying access between zero and one)
+
+In order to restrict access to the child's device, the child's device needs to be identified.
+In order to not restrict access to other devices, those devices also need to be identified.
+Any device on the network which is not identifiable as being in either of these two categories has an ambiguous policy.
+
+A child's device which uses a PVOM, PDGM or PNGM address will be seen to have a consistent layer-2 address by the network infrastructure.
+The device can therefore be recognized and Internet access can be restricted at appropriate times.
+
+The use of a Per-Boot (PBGM) or a Per-Period (PPGM) address policy will result in the child's device changing it's layer-two address periodically, and this requires that the network infrastructure have it's policy updated.
+
+A child (particulary a teenager) may be motivated to overcome these restrictions.
+They may be able to control their device, either through intentional "jail-breaking", or perhaps even due to some available malware that has the same effect.
+Any protocol that allows the child to pick a new identity (for instance, impersonating a parent device) would allow the child to overcome the limitation.
+
+On a network where all devices except the child's device have no limitation is easiest: all the child needs to is to pick a new randomly chosen layer-two address.
+A network with a constant Pre-Shared Key (WPA-PSK) allows for any device knowing that PSK to join the network with essentially any layer-two address.
+
+It is therefore necessary for all devices which are present in this child-restricted network to identify themselves in order for the network infrastructure to know that the relevant device is not a child's device.
+
+This identification must be specific to each device, must not be forgeable, and must contain a credential that the network infrastructure can identify.
+
+### Home Networks need to use WPA-Enterprise
+
+An LDevID deployed to all devices meets all of the criteria.
+
+* observation of the public certificate does not convey any special permissions
+* the private key of the LDevID an be stored in a secure element, fTPM or other trusted executation environment
+* it scales easily to many devices
+* it allows for a specific device to be identified for special processing, or to be ejected from the network
+* it does not require any external arrangement with external services, if the CA's key is managed by the home router itself.
+
+
+
+
 
 ## Paid Internet Services
 
