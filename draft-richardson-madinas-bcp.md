@@ -29,6 +29,7 @@ normative:
 
 informative:
   RFC7030:
+  CAPTIVE: RFC8952
 
 --- abstract
 
@@ -116,7 +117,7 @@ The most difficult part of this change is that it requires that home routers:
 ## Paid/Captive Internet Services
 
 A common case for hotels, airports and coffee shops is that they have an unencrypted network id.
-Guests connect to this network, but the network contains a captive portal {{RFCCAPTIVE}} which "hijacks" all connections, and then demands a credential.
+Guests connect to this network, but the network contains a captive portal {{CAPTIVE}} which "hijacks" all connections, and then demands a credential.
 Often these credentials are somewhat trivial: a room number with a matching guest last name.
 Some hotels demand far more complex logins, including use of loyalty system logins to enable access.
 
@@ -136,8 +137,7 @@ They seldom change, allowing patrons who have previously sipped coffee in that l
 For the coffee shop, it is uncommon for devices to spend a significant amount of time at that location.
 It is unlikely that a typical 12-hour Per-Period (PPGM) policy will run into this problem in a coffee shop.
 
-
-Specifically, the PSK methods are rather weak, as they PSK is well known, so not only can any attacker setup their own access point (grabbing all the traffic, and any PII they want), but
+But, the PSK methods are rather weak, as they PSK is well known, so not only can any attacker setup their own access point (grabbing all the traffic, and any PII they want), but
 
 
 # Privacy Considerations
