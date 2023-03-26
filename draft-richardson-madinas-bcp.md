@@ -103,13 +103,42 @@ An LDevID deployed to all devices meets all of the criteria.
 * it allows for a specific device to be identified for special processing, or to be ejected from the network
 * it does not require any external arrangement with external services, if the CA's key is managed by the home router itself.
 
+There are some privacy concerns with EAP-TLS used in WPA-Enterprise.
+Specifically, the client-certificate is visible in EAP-TLS 1.2 handshakes, and this could be used by an observer to coordinate which connection belongs to which personal device.
+
+The most difficult part of this change is that it requires that home routers:
+
+1. maintain a PKI with which to sign new certificates
+2. have a mechanism to easily onboard new devices, along with a mechanism to deal with IoT devices which might be in the home.
+3. have a way for the first user of the router to become the administrator
+4. provide a way to backup the entire mechanism to guard against home router failure, flash replacement (such as when ISPs change), or other incompatible upgrades.
+
+## Paid/Captive Internet Services
+
+A common case for hotels, airports and coffee shops is that they have an unencrypted network id.
+Guests connect to this network, but the network contains a captive portal {{RFCCAPTIVE}} which "hijacks" all connections, and then demands a credential.
+Often these credentials are somewhat trivial: a room number with a matching guest last name.
+Some hotels demand far more complex logins, including use of loyalty system logins to enable access.
+
+For the coffee shop and airport situations, it is uncommon for devices to spend a significant amount of time at that location.
+The use of an unencrypted network makes it trivial for an attacker to do ARP or ND spoofing of the default router
+They can then capture logins to the captive portal (having put up their own look-alike).
+
+It is often also trivial in these networks to allow multicast traffic, and identifiable information can be found by using mDNS queries, or other port-scanning methods.
+The access point can not defend against such attacks, since the official access point has been spoofed.
 
 
+## Well known PSK Internet access
+
+In some coffee shops, the network is encrypted, but there is a WPA-PSK which is written on the chalkboard.
+They seldom change, allowing patrons who have previously sipped coffee in that location to easily return and instantly be connected again.
+
+For the coffee shop, it is uncommon for devices to spend a significant amount of time at that location.
+It is unlikely that a typical 12-hour Per-Period (PPGM) policy will run into this problem in a coffee shop.
 
 
-## Paid Internet Services
+Specifically, the PSK methods are rather weak, as they PSK is well known, so not only can any attacker setup their own access point (grabbing all the traffic, and any PII they want), but
 
-TBD
 
 # Privacy Considerations
 
