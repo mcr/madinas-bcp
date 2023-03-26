@@ -55,7 +55,7 @@ A particularly negative market situation can develop when client and server impl
 
 # Terminology
 
-{::boilerplate bcp14bcp}
+{::boilerplate bcp14info}
 
 {{?I-D.ietf-madinas-mac-address-randomization, Section 8}} defines the following terms:
 
